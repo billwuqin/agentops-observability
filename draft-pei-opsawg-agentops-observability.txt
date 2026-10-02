@@ -442,6 +442,7 @@ Table of Contents
      sensitivity: "public" / "internal" / "confidential" / "restricted",
      provenance: "observed" / "self-reported" / "derived"
    }
+}
 
                  Figure 2: AgentOps Core Event Model
 
@@ -485,7 +486,7 @@ Table of Contents
    float, feature_groups: [* ("semantic" / "topology" / "resource" /
    "state" / "assertion" / tstr)], explanation_ref: evidence-ref,
    recommended_action: "observe" / "checkpoint" / "retry" / "reroute" /
-   "constrain" / "terminate" } number = int / float ~~~~
+   "constrain" / "terminate" number = int / float } ~~~~
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying

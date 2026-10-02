@@ -1683,6 +1683,7 @@ remediation, and audit.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
      sensitivity: "public" / "internal" / "confidential" / "restricted",
      provenance: "observed" / "self-reported" / "derived"
    }
+}
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1753,8 +1754,8 @@ branch, retry, checkpoint, and dependency relationships.<a href="#section-5.1-3.
      feature_groups: [* ("semantic" / "topology" / "resource" / "state" / "assertion" / tstr)],
      explanation_ref: evidence-ref,
      recommended_action: "observe" / "checkpoint" / "retry" / "reroute" / "constrain" / "terminate"
-   }
-   number = int / float
+     number = int / float
+     }
 ~~~~<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">The candidate_event_ids array is a ranked set.  A detector <span class="bcp14">SHOULD</span>
    emit a compact, evidence-preserving candidate set rather than copying
