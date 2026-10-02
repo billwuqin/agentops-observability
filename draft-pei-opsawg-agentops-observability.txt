@@ -2,7 +2,7 @@
 
 
 
-OPSAWG Working Group                                              C. Pei
+Operations and Management Area Working Group                      C. Pei
 Internet-Draft                                                   Z. Wang
 Intended status: Informational                                     J. Li
 Expires: 5 April 2027                                               CNIC
@@ -28,6 +28,18 @@ Abstract
    benchmarks of detection lead time, responsible-actor attribution, and
    root-cause localization.  The model is transport-neutral and can be
    carried by existing telemetry systems.
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Operations and
+   Management Area Working Group Working Group mailing list
+   (opsawg@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/opsawg/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/billwuqin/agentops-observability.
 
 Status of This Memo
 
@@ -67,18 +79,21 @@ Table of Contents
      1.2.  Scope
    2.  Conventions and Definitions
    3.  AgentOps Observability Architecture
-   4.  Benchmarking Considerations
-   5.  Operational Considerations
-     5.1.  Collection and Sampling
-     5.2.  Clock and Ordering
-     5.3.  Schema Evolution
-   6.  Privacy Considerations
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  Implementation Status
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   4.  Event Model
+     4.1.  Event Envelope
+     4.2.  Actor and Phase
+   5.  Benchmarking Considerations
+   6.  Operational Considerations
+     6.1.  Collection and Sampling
+     6.2.  Clock and Ordering
+     6.3.  Schema Evolution
+   7.  Privacy Considerations
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. Implementation Status
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -231,7 +246,62 @@ Table of Contents
    phase, action kind, delegation, state references, and evidence needed
    to distinguish causal origin from downstream manifestation.
 
-4.  Benchmarking Considerations
+4.  Event Model
+
+4.1.  Event Envelope
+
+   Each event record MUST contain:
+
+   *  schema_version, identifying the version of this event model;
+
+   *  event_id, unique within the telemetry domain;
+
+   *  session_id, stable across the complete task trajectory;
+
+   *  timestamp, formatted according to [RFC3339];
+
+   *  sequence, a monotonically increasing value within the producing
+      actor;
+
+   *  actor, identifying the actor and its operational role;
+
+   *  phase, identifying the agentic lifecycle phase;
+
+   *  event_type, identifying the operation represented by the event;
+      and
+
+   *  status, describing the event outcome known at emission time.
+
+   Each event SHOULD contain trace_id, span_id, and parent_span_id when
+   distributed trace context exists.  It SHOULD contain parent_event_ids
+   when the execution topology cannot be represented by a single parent
+   span.
+
+   The sequence field orders events from one producer.  Consumers MUST
+   NOT assume that it establishes a total order across producers.
+   Consumers SHOULD use causal links, timestamps, and producer-local
+   sequence numbers together.
+
+4.2.  Actor and Phase
+
+   The actor.kind value MUST be one of human, agent, orchestrator,
+   model, tool, verifier, environment, or other.  The actor.id value
+   MUST be stable within the session.  The actor.role value SHOULD
+   describe the functional role rather than a vendor-specific class
+   name.
+
+   The phase value MUST be one of:
+
+   *  pre-execution: request interpretation, constraint extraction,
+      planning, actor selection, and initial state construction;
+
+   *  execution: inference, delegation, tool use, memory access, state
+      update, and intermediate verification; or
+
+   *  post-execution: final verification, result publication, diagnosis,
+      remediation, and audit.
+
+5.  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite
    or scoring methodology.  AgentOps early-detection and root-cause-
@@ -247,9 +317,9 @@ Table of Contents
    model and used as a diagnosis workload, but its network-task score is
    not an AgentOps diagnosis score.
 
-5.  Operational Considerations
+6.  Operational Considerations
 
-5.1.  Collection and Sampling
+6.1.  Collection and Sampling
 
    Sampling decisions can destroy the evidence required for diagnosis.
    Implementations SHOULD retain task boundaries, delegation edges,
@@ -263,21 +333,21 @@ Table of Contents
    SHOULD support a deferred or tail-based retention decision triggered
    by anomalies, assertion violations, or terminal failures.
 
-5.2.  Clock and Ordering
+6.2.  Clock and Ordering
 
    All timestamps MUST follow [RFC3339] and SHOULD be expressed in UTC.
    Implementations SHOULD record clock-quality information when cross-
    host ordering affects diagnosis.  Causal parent links take precedence
    over wall clock order when the two conflict.
 
-5.3.  Schema Evolution
+6.3.  Schema Evolution
 
    Major incompatible revisions MUST change schema_version.  Consumers
    MUST ignore unknown optional fields and preserve them when forwarding
    records.  Required fields defined by a future major version MUST NOT
    be assumed by a consumer that only supports this version.
 
-6.  Privacy Considerations
+7.  Privacy Considerations
 
    Agent trajectories can contain user prompts, personal data,
    credentials, proprietary source code, retrieved documents, model
@@ -300,7 +370,7 @@ Table of Contents
    for a declared diagnostic purpose and protected by an applicable
    policy.
 
-7.  Security Considerations
+8.  Security Considerations
 
    AgentOps telemetry is security-sensitive.  It can expose
    instructions, system topology, tool capabilities, failure patterns,
@@ -330,11 +400,11 @@ Table of Contents
    sequence numbers, and duplicate detection.  Cross-domain trace
    identifiers MUST NOT be accepted as proof of trust or identity.
 
-8.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-9.  Implementation Status
+10.  Implementation Status
 
    This section is to be removed before publication as an RFC.  The
    event model is based on telemetry fields used in ongoing AgentOps
@@ -344,9 +414,9 @@ Table of Contents
    mappings to existing OpenTelemetry representations and validation of
    the CDDL examples.
 
-10.  References
+11.  References
 
-10.1.  Normative References
+11.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -357,7 +427,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-10.2.  Informative References
+11.2.  Informative References
 
    [AGENTOPS-BENCH]
               "Benchmarking Failure Detection and Root-Cause Diagnosis

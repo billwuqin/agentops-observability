@@ -1069,7 +1069,7 @@ svg {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">OPSAWG Working Group</dd>
+<dd class="workgroup">Operations and Management Area Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-pei-opsawg-agentops-observability-latest</dd>
 <dt class="label-published">Published:</dt>
@@ -1114,6 +1114,17 @@ symptoms; and provides the evidence model required by separate
 benchmarks of detection lead time, responsible-actor attribution, and
 root-cause localization.  The model is transport-neutral and can be
 carried by existing telemetry systems.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-discussion-venues">
+<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Discussion of this document takes place on the
+    Operations and Management Area Working Group Working Group mailing list (opsawg@ietf.org),
+    which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/opsawg/">https://mailarchive.ietf.org/arch/browse/opsawg/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
+    <span><a href="https://github.com/billwuqin/agentops-observability">https://github.com/billwuqin/agentops-observability</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1181,50 +1192,61 @@ carried by existing telemetry systems.<a href="#section-abstract-1" class="pilcr
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-agentops-observability-arch" class="internal xref">AgentOps Observability Architecture</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-benchmarking-considerations" class="internal xref">Benchmarking Considerations</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-event-model" class="internal xref">Event Model</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-event-envelope" class="internal xref">Event Envelope</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-actor-and-phase" class="internal xref">Actor and Phase</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-collection-and-sampling" class="internal xref">Collection and Sampling</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-clock-and-ordering" class="internal xref">Clock and Ordering</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-schema-evolution" class="internal xref">Schema Evolution</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-benchmarking-considerations" class="internal xref">Benchmarking Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-collection-and-sampling" class="internal xref">Collection and Sampling</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-clock-and-ordering" class="internal xref">Clock and Ordering</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-schema-evolution" class="internal xref">Schema Evolution</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1400,155 +1422,235 @@ checkpoint, retry, reroute, constrain, or terminate the task.<a href="#section-3
    to distinguish causal origin from downstream manifestation.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="benchmarking-considerations">
+<div id="event-model">
 <section id="section-4">
-      <h2 id="name-benchmarking-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-benchmarking-considerations" class="section-name selfRef">Benchmarking Considerations</a>
+      <h2 id="name-event-model">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-event-model" class="section-name selfRef">Event Model</a>
       </h2>
-<p id="section-4-1">This document standardizes observability evidence, not a task suite
+<div id="event-envelope">
+<section id="section-4.1">
+        <h3 id="name-event-envelope">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-event-envelope" class="section-name selfRef">Event Envelope</a>
+        </h3>
+<p id="section-4.1-1">Each event record <span class="bcp14">MUST</span> contain:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1-2.1">
+            <p id="section-4.1-2.1.1">schema_version, identifying the version of this event model;<a href="#section-4.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.2">
+            <p id="section-4.1-2.2.1">event_id, unique within the telemetry domain;<a href="#section-4.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.3">
+            <p id="section-4.1-2.3.1">session_id, stable across the complete task trajectory;<a href="#section-4.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.4">
+            <p id="section-4.1-2.4.1">timestamp, formatted according to <span>[<a href="#RFC3339" class="cite xref">RFC3339</a>]</span>;<a href="#section-4.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.5">
+            <p id="section-4.1-2.5.1">sequence, a monotonically increasing value within the producing
+actor;<a href="#section-4.1-2.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.6">
+            <p id="section-4.1-2.6.1">actor, identifying the actor and its operational role;<a href="#section-4.1-2.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.7">
+            <p id="section-4.1-2.7.1">phase, identifying the agentic lifecycle phase;<a href="#section-4.1-2.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.8">
+            <p id="section-4.1-2.8.1">event_type, identifying the operation represented by the event;
+and<a href="#section-4.1-2.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.9">
+            <p id="section-4.1-2.9.1">status, describing the event outcome known at emission time.<a href="#section-4.1-2.9.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-4.1-3">Each event <span class="bcp14">SHOULD</span> contain trace_id, span_id, and parent_span_id when
+   distributed trace context exists.  It <span class="bcp14">SHOULD</span> contain parent_event_ids
+   when the execution topology cannot be represented by a single parent
+   span.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">The sequence field orders events from one producer.  Consumers <span class="bcp14">MUST NOT</span> assume that it establishes a total order across producers.
+   Consumers <span class="bcp14">SHOULD</span> use causal links, timestamps, and producer-local
+   sequence numbers together.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="actor-and-phase">
+<section id="section-4.2">
+        <h3 id="name-actor-and-phase">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-actor-and-phase" class="section-name selfRef">Actor and Phase</a>
+        </h3>
+<p id="section-4.2-1">The actor.kind value <span class="bcp14">MUST</span> be one of human, agent, orchestrator,
+   model, tool, verifier, environment, or other.  The actor.id value
+   <span class="bcp14">MUST</span> be stable within the session.  The actor.role value <span class="bcp14">SHOULD</span>
+   describe the functional role rather than a vendor-specific class
+   name.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">The phase value <span class="bcp14">MUST</span> be one of:<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-3.1">
+            <p id="section-4.2-3.1.1">pre-execution: request interpretation, constraint extraction,
+planning, actor selection, and initial state construction;<a href="#section-4.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-3.2">
+            <p id="section-4.2-3.2.1">execution: inference, delegation, tool use, memory access, state
+update, and intermediate verification; or<a href="#section-4.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-3.3">
+            <p id="section-4.2-3.3.1">post-execution: final verification, result publication, diagnosis,
+remediation, and audit.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="benchmarking-considerations">
+<section id="section-5">
+      <h2 id="name-benchmarking-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-benchmarking-considerations" class="section-name selfRef">Benchmarking Considerations</a>
+      </h2>
+<p id="section-5-1">This document standardizes observability evidence, not a task suite
    or scoring methodology.  AgentOps early-detection and root-cause-
    diagnosis benchmark requirements are specified separately in
-   <span>[<a href="#AGENTOPS-BENCH" class="cite xref">AGENTOPS-BENCH</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">In particular, an AgentOps diagnosis benchmark is distinct from a
+   <span>[<a href="#AGENTOPS-BENCH" class="cite xref">AGENTOPS-BENCH</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">In particular, an AgentOps diagnosis benchmark is distinct from a
    benchmark of an agent that performs network configuration or other
    network operations.  The latter evaluates the agent's task capability
    and network outcome; the former evaluates whether an operational
    method can detect and diagnose a failure in an agentic system.  A
    network-management-agent trajectory can be encoded using this event
    model and used as a diagnosis workload, but its network-task score is
-   not an AgentOps diagnosis score.<a href="#section-4-2" class="pilcrow">¶</a></p>
+   not an AgentOps diagnosis score.<a href="#section-5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operational-considerations">
-<section id="section-5">
+<section id="section-6">
       <h2 id="name-operational-considerations">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
 <div id="collection-and-sampling">
-<section id="section-5.1">
+<section id="section-6.1">
         <h3 id="name-collection-and-sampling">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-collection-and-sampling" class="section-name selfRef">Collection and Sampling</a>
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-collection-and-sampling" class="section-name selfRef">Collection and Sampling</a>
         </h3>
-<p id="section-5.1-1">Sampling decisions can destroy the evidence required for diagnosis.
+<p id="section-6.1-1">Sampling decisions can destroy the evidence required for diagnosis.
    Implementations <span class="bcp14">SHOULD</span> retain task boundaries, delegation edges,
    assertion violations, anomaly candidates, verifier outcomes, recovery
    attempts, and checkpoint references whenever any event in the session
-   is retained.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">When full payloads cannot be retained, producers <span class="bcp14">SHOULD</span> emit stable
+   is retained.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">When full payloads cannot be retained, producers <span class="bcp14">SHOULD</span> emit stable
    hashes and access-controlled evidence references.  Head sampling
    alone is generally insufficient for failed trajectories; collectors
    <span class="bcp14">SHOULD</span> support a deferred or tail-based retention decision triggered
-   by anomalies, assertion violations, or terminal failures.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+   by anomalies, assertion violations, or terminal failures.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="clock-and-ordering">
-<section id="section-5.2">
+<section id="section-6.2">
         <h3 id="name-clock-and-ordering">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-clock-and-ordering" class="section-name selfRef">Clock and Ordering</a>
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-clock-and-ordering" class="section-name selfRef">Clock and Ordering</a>
         </h3>
-<p id="section-5.2-1">All timestamps <span class="bcp14">MUST</span> follow <span>[<a href="#RFC3339" class="cite xref">RFC3339</a>]</span> and <span class="bcp14">SHOULD</span> be expressed in UTC.
+<p id="section-6.2-1">All timestamps <span class="bcp14">MUST</span> follow <span>[<a href="#RFC3339" class="cite xref">RFC3339</a>]</span> and <span class="bcp14">SHOULD</span> be expressed in UTC.
    Implementations <span class="bcp14">SHOULD</span> record clock-quality information when cross-
    host ordering affects diagnosis.  Causal parent links take precedence
-   over wall clock order when the two conflict.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+   over wall clock order when the two conflict.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="schema-evolution">
-<section id="section-5.3">
+<section id="section-6.3">
         <h3 id="name-schema-evolution">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-schema-evolution" class="section-name selfRef">Schema Evolution</a>
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-schema-evolution" class="section-name selfRef">Schema Evolution</a>
         </h3>
-<p id="section-5.3-1">Major incompatible revisions <span class="bcp14">MUST</span> change schema_version.  Consumers
+<p id="section-6.3-1">Major incompatible revisions <span class="bcp14">MUST</span> change schema_version.  Consumers
    <span class="bcp14">MUST</span> ignore unknown optional fields and preserve them when forwarding
    records.  Required fields defined by a future major version <span class="bcp14">MUST NOT</span>
-   be assumed by a consumer that only supports this version.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+   be assumed by a consumer that only supports this version.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="privacy-considerations">
-<section id="section-6">
+<section id="section-7">
       <h2 id="name-privacy-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-6-1">Agent trajectories can contain user prompts, personal data,
+<p id="section-7-1">Agent trajectories can contain user prompts, personal data,
    credentials, proprietary source code, retrieved documents, model
    outputs, and behavioral profiles.  Centralizing this material creates
-   privacy risks described more generally in <span>[<a href="#RFC6973" class="cite xref">RFC6973</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">Producers <span class="bcp14">MUST</span> support field-level redaction or evidence references
+   privacy risks described more generally in <span>[<a href="#RFC6973" class="cite xref">RFC6973</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">Producers <span class="bcp14">MUST</span> support field-level redaction or evidence references
    in place of plaintext content.  Access to evidence <span class="bcp14">SHOULD</span> be purpose-
    limited, logged, and time-bounded.  Benchmark publishers <span class="bcp14">MUST</span> remove
    credentials and direct identifiers and <span class="bcp14">SHOULD</span> evaluate whether
-   trajectory combinations can re-identify users or organizations.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">Actor identifiers <span class="bcp14">SHOULD</span> be pseudonymous outside the operational
+   trajectory combinations can re-identify users or organizations.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">Actor identifiers <span class="bcp14">SHOULD</span> be pseudonymous outside the operational
    trust domain.  Content hashes can still reveal low-entropy values
    through guessing and therefore <span class="bcp14">MUST NOT</span> be treated as anonymization
-   by themselves.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p id="section-6-4">Raw prompts, outputs, memory values, and self-reported reasoning
+   by themselves.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">Raw prompts, outputs, memory values, and self-reported reasoning
    summaries <span class="bcp14">SHOULD NOT</span> cross an administrative boundary unless needed
    for a declared diagnostic purpose and protected by an applicable
-   policy.<a href="#section-6-4" class="pilcrow">¶</a></p>
+   policy.<a href="#section-7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-7">
+<section id="section-8">
       <h2 id="name-security-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">AgentOps telemetry is security-sensitive.  It can expose
+<p id="section-8-1">AgentOps telemetry is security-sensitive.  It can expose
    instructions, system topology, tool capabilities, failure patterns,
-   and recovery controls.  The general guidance in <span>[<a href="#RFC3552" class="cite xref">RFC3552</a>]</span> applies.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">Telemetry producers and collectors <span class="bcp14">MUST</span> provide confidentiality,
+   and recovery controls.  The general guidance in <span>[<a href="#RFC3552" class="cite xref">RFC3552</a>]</span> applies.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">Telemetry producers and collectors <span class="bcp14">MUST</span> provide confidentiality,
    integrity, and origin authentication appropriate to the deployment.
    Diagnosis systems <span class="bcp14">MUST</span> treat agent-generated explanations and
    attributes as untrusted input.  An agent or tool can attempt to hide
    a failure, frame another actor, inject instructions into a diagnostic
-   model, or create excessive telemetry.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">Collectors <span class="bcp14">SHOULD</span> separate observed facts from self-reported and
+   model, or create excessive telemetry.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">Collectors <span class="bcp14">SHOULD</span> separate observed facts from self-reported and
    derived claims using the provenance field.  Attribution engines
    <span class="bcp14">SHOULD</span> validate cited event identifiers and <span class="bcp14">SHOULD</span> prefer directly
    observed tool, verifier, and state-transition evidence over
-   unsupported natural-language claims.<a href="#section-7-3" class="pilcrow">¶</a></p>
-<p id="section-7-4">Implementations <span class="bcp14">MUST</span> apply resource limits to record size, evidence
+   unsupported natural-language claims.<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">Implementations <span class="bcp14">MUST</span> apply resource limits to record size, evidence
    retrieval, candidate-set expansion, and recursive delegation graphs.
    Automated remediation <span class="bcp14">SHOULD</span> require policy authorization
-   proportional to impact.  In particular, an anomaly score alone <span class="bcp14">MUST NOT</span> authorize destructive actions.<a href="#section-7-4" class="pilcrow">¶</a></p>
-<p id="section-7-5">Replay and reordering can corrupt causal reconstruction.  Deployments
+   proportional to impact.  In particular, an anomaly score alone <span class="bcp14">MUST NOT</span> authorize destructive actions.<a href="#section-8-4" class="pilcrow">¶</a></p>
+<p id="section-8-5">Replay and reordering can corrupt causal reconstruction.  Deployments
    <span class="bcp14">SHOULD</span> use tamper-evident storage, stable identifiers, producer-local
    sequence numbers, and duplicate detection.  Cross-domain trace
-   identifiers <span class="bcp14">MUST NOT</span> be accepted as proof of trust or identity.<a href="#section-7-5" class="pilcrow">¶</a></p>
+   identifiers <span class="bcp14">MUST NOT</span> be accepted as proof of trust or identity.<a href="#section-8-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-iana-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">This document has no IANA actions.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">This document has no IANA actions.<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="implementation-status">
-<section id="section-9">
+<section id="section-10">
       <h2 id="name-implementation-status">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
       </h2>
-<p id="section-9-1">This section is to be removed before publication as an RFC.
+<p id="section-10-1">This section is to be removed before publication as an RFC.
    The event model is based on telemetry fields used in ongoing AgentOps
    experiments for anomaly-first failure attribution and long-horizon
    root-cause localization.  No interoperability implementation is
    claimed for version -00.  Future revisions are expected to report
    mappings to existing OpenTelemetry representations and validation of
-   the CDDL examples.<a href="#section-9-1" class="pilcrow">¶</a></p>
+   the CDDL examples.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-10">
+<section id="section-11">
       <h2 id="name-references">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-10.1">
+<section id="section-11.1">
         <h3 id="name-normative-references">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
@@ -1563,9 +1665,9 @@ checkpoint, retry, reroute, constrain, or terminate the task.<a href="#section-3
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-10.2">
+<section id="section-11.2">
         <h3 id="name-informative-references">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="AGENTOPS-BENCH">[AGENTOPS-BENCH]</dt>
