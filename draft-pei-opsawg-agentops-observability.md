@@ -347,6 +347,31 @@ carried by existing telemetry systems.
    fragment defines the JSON-compatible logical record.  JSON
    serialization MUST follow {{?RFC8259}}.
 
+~~~~
+   agentops-record = event / anomaly / assertion / diagnosis
+   event = {
+     schema_version: tstr,
+     event_id: tstr,
+     session_id: tstr,
+     timestamp: tstr,
+     sequence: uint,
+     trace_id: tstr,
+     span_id: tstr,
+     parent_span_id: tstr,
+     parent_event_ids: [* tstr],
+     actor: actor,
+     phase: "pre-execution" / "execution" / "post-execution",
+     event_type: tstr,
+     status: "started" / "ok" / "error" / "cancelled" / "unknown",
+     action: action,
+     delegation: delegation,
+     model: component,
+     tool: component,
+     checkpoint_id: tstr,
+     evidence: [* evidence-ref],
+     attributes: { * tstr => any }
+   }
+~~~~
 
 #  Benchmarking Considerations
 
