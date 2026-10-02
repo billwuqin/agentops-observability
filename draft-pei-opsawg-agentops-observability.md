@@ -462,7 +462,7 @@ carried by existing telemetry systems.
      number = int / float
      }
 ~~~~
-               Figure 2: Anomaly Signal Record
+{: #signal title="Anomaly Signal Record" artwork-align="center"}
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
