@@ -462,7 +462,7 @@ carried by existing telemetry systems.
      number = int / float
      }
 ~~~~
-{: #signal-record title="Anomaly Sigal Record" artwork-align="center"}
+ {: #signal title="Anomaly Sigal Record" artwork-align="center"}
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
