@@ -347,68 +347,6 @@ carried by existing telemetry systems.
    fragment defines the JSON-compatible logical record.  JSON
    serialization MUST follow {{?RFC8259}}.
 
-~~~~
-   agentops-record = event / anomaly / assertion / diagnosis
-   event = {
-     schema_version: tstr,
-     event_id: tstr,
-     session_id: tstr,
-     timestamp: tstr,
-     sequence: uint,
-     trace_id: tstr,
-     span_id: tstr,
-     parent_span_id: tstr,
-     parent_event_ids: [* tstr],
-     actor: actor,
-     phase: "pre-execution" / "execution" / "post-execution",
-     event_type: tstr,
-     status: "started" / "ok" / "error" / "cancelled" / "unknown",
-     action: action,
-     delegation: delegation,
-     model: component,
-     tool: component,
-     checkpoint_id: tstr,
-     evidence: [* evidence-ref],
-     attributes: { * tstr => any }
-   }
-   actor = {
-     id: tstr,
-     kind: "human" / "agent" / "orchestrator" / "model" / "tool" / "verifier" / "environment" / "other",
-     ? role: tstr,
-     ? instance: tstr,
-     ? version: tstr
-   }
-   action = {
-     kind: tstr,
-     name: tstr,
-     input_ref: evidence-ref,
-     output_ref: evidence-ref,
-     duration_ms: uint,
-     token_input: uint,
-     token_output: uint
-   }
-   delegation = {
-     from_actor: tstr,
-     to_actor: tstr,
-     instruction_ref: evidence-ref,
-     ? constraints_ref: evidence-ref
-   }
-   component = {
-     name: tstr,
-     provider: tstr,
-     version: tstr,
-     call_id: tstr
-   }
-   evidence-ref = {
-     id: tstr,
-     media_type: tstr,
-     hash: tstr,
-     location: tstr,
-     sensitivity: "public" / "internal" / "confidential" / "restricted",
-     provenance: "observed" / "self-reported" / "derived"
-   }
-~~~~
-{: #event-model title="AgentOps Core Event Model"}
 
 #  Benchmarking Considerations
 
