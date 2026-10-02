@@ -1203,6 +1203,12 @@ carried by existing telemetry systems.<a href="#section-abstract-1" class="pilcr
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-event-types" class="internal xref">Event Types</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-evidence-and-content-handli" class="internal xref">Evidence and Content Handling</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="auto internal xref">4.5</a>.  <a href="#name-cddl-definition" class="internal xref">CDDL Definition</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
@@ -1561,6 +1567,37 @@ remediation, and audit.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
    extension data.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="evidence-and-content-handling">
+<section id="section-4.4">
+        <h3 id="name-evidence-and-content-handli">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-evidence-and-content-handli" class="section-name selfRef">Evidence and Content Handling</a>
+        </h3>
+<p id="section-4.4-1">Events <span class="bcp14">SHOULD</span> record structured attributes required for diagnosis,
+   including action name, input and output references, tool result
+   status, model and tool versions, token usage, duration, delegation
+   target, verifier result, and checkpoint reference when applicable.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-2">Large or sensitive content <span class="bcp14">SHOULD</span> be represented by an evidence_ref
+   containing a content hash, media type, access-controlled location,
+   and sensitivity label.  A collector <span class="bcp14">MUST NOT</span> dereference protected
+   evidence unless authorized for the relevant purpose.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.4-3">Implementations <span class="bcp14">MUST NOT</span> require hidden model chain-of-thought.  An
+   implementation <span class="bcp14">MAY</span> record a model-generated decision summary,
+   reflection, or explanation when the model and deployment policy
+   permit it.  Such text <span class="bcp14">MUST</span> be labeled as self-reported evidence and
+   <span class="bcp14">MUST NOT</span> be treated as an authoritative description of internal model
+   computation.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="cddl-definition">
+<section id="section-4.5">
+        <h3 id="name-cddl-definition">
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-cddl-definition" class="section-name selfRef">CDDL Definition</a>
+        </h3>
+<p id="section-4.5-1">The following Concise Data Definition Language (CDDL) <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span>
+   fragment defines the JSON-compatible logical record.  JSON
+   serialization <span class="bcp14">MUST</span> follow <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="benchmarking-considerations">
@@ -1758,6 +1795,14 @@ remediation, and audit.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
 <dt id="RFC6973">[RFC6973]</dt>
         <dd>
 <span class="refAuthor">Cooper, A.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Aboba, B.</span>, <span class="refAuthor">Peterson, J.</span>, <span class="refAuthor">Morris, J.</span>, <span class="refAuthor">Hansen, M.</span>, and <span class="refAuthor">R. Smith</span>, <span class="refTitle">"Privacy Considerations for Internet Protocols"</span>, <span class="seriesInfo">RFC 6973</span>, <span class="seriesInfo">DOI 10.17487/RFC6973</span>, <time datetime="2013-07" class="refDate">July 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6973">https://www.rfc-editor.org/rfc/rfc6973</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8259">[RFC8259]</dt>
+        <dd>
+<span class="refAuthor">Bray, T., Ed.</span>, <span class="refTitle">"The JavaScript Object Notation (JSON) Data Interchange Format"</span>, <span class="seriesInfo">STD 90</span>, <span class="seriesInfo">RFC 8259</span>, <span class="seriesInfo">DOI 10.17487/RFC8259</span>, <time datetime="2017-12" class="refDate">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8610">[RFC8610]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Vigano, C.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="W3C-TRACE-CONTEXT">[W3C-TRACE-CONTEXT]</dt>
         <dd>
