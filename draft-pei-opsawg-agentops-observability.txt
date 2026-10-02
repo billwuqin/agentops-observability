@@ -85,18 +85,22 @@ Table of Contents
      4.3.  Event Types
      4.4.  Evidence and Content Handling
      4.5.  CDDL Definition
-   5.  Benchmarking Considerations
-   6.  Operational Considerations
-     6.1.  Collection and Sampling
-     6.2.  Clock and Ordering
-     6.3.  Schema Evolution
-   7.  Privacy Considerations
-   8.  Security Considerations
-   9.  IANA Considerations
-   10. Implementation Status
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   5.  Early Failure Detection
+     5.1.  Baselines and Partial-Trajectory Evaluation
+     5.2.  Anomaly Signal
+     5.3.  Assertions and Trust Levels
+   6.  Benchmarking Considerations
+   7.  Operational Considerations
+     7.1.  Collection and Sampling
+     7.2.  Clock and Ordering
+     7.3.  Schema Evolution
+   8.  Privacy Considerations
+   9.  Security Considerations
+   10. IANA Considerations
+   11. Implementation Status
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -438,7 +442,80 @@ Table of Contents
 
                  Figure 2: AgentOps Core Event Model
 
-5.  Benchmarking Considerations
+5.  Early Failure Detection
+
+5.1.  Baselines and Partial-Trajectory Evaluation
+
+   A detector operates on a partial trajectory and compares it with an
+   explicit baseline.  The baseline can represent successful executions,
+   policy-conforming executions, a known model or tool version, or an
+   application-defined TLA level.
+
+   A detector SHOULD consider both:
+
+   *  semantic evidence, such as actor role, operation, constraint, tool
+      result, and state transition; and
+
+   *  structural evidence, such as delegation topology, call tree,
+      branch, retry, checkpoint, and dependency relationships.
+
+   This dual view is important because an individually plausible action
+   can be anomalous in its topological or role context, while a
+   structurally unusual action can be semantically correct.  The
+   specification does not mandate a particular detector.
+   Reconstruction, prediction, assertion, spectrum, statistical, and
+   hybrid detectors can all produce conforming anomaly records.
+
+5.2.  Anomaly Signal
+
+   An anomaly record MUST identify the detector, baseline, detection
+   time, score, and candidate event set.  It MUST state whether a higher
+   or lower score indicates greater deviation.  It SHOULD include the
+   threshold, feature groups, confidence, and the earliest candidate
+   event.
+
+   ~~~~ anomaly = { schema_version: tstr, anomaly_id: tstr, session_id:
+   tstr, detected_at: tstr, detector: component, baseline_id: tstr,
+   score: number, score_direction: "higher-is-more-anomalous" / "lower-
+   is-more-anomalous", candidate_event_ids: [+ tstr],
+   earliest_candidate_event_id: tstr, threshold: number, confidence:
+   float, feature_groups: [* ("semantic" / "topology" / "resource" /
+   "state" / "assertion" / tstr)], explanation_ref: evidence-ref,
+   recommended_action: "observe" / "checkpoint" / "retry" / "reroute" /
+   "constrain" / "terminate" } number = int / float ~~~~
+
+   The candidate_event_ids array is a ranked set.  A detector SHOULD
+   emit a compact, evidence-preserving candidate set rather than copying
+   the complete trajectory into the anomaly record.  The original events
+   MUST remain retrievable for audit and attribution.
+
+5.3.  Assertions and Trust Levels
+
+   Application assertions provide a deterministic complement to
+   statistical detection.  An assertion record MUST identify the
+   applicable TLA level, assertion identifier, evaluation result, and
+   events used as evidence.
+
+      assertion = {
+        schema_version: tstr,
+        assertion_event_id: tstr,
+        session_id: tstr,
+        timestamp: tstr,
+        tla_level: tstr,
+        assertion_id: tstr,
+        result: "pass" / "approaching" / "violation" / "unknown",
+        evidence_event_ids: [* tstr],
+        measured_value: any,
+        boundary_value: any,
+        remediation: tstr
+      }
+
+   The approaching result supports risk prediction before a hard
+   boundary is crossed.  Trust levels and boundaries are application-
+   specific; this document standardizes their observability, not their
+   values.
+
+6.  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite
    or scoring methodology.  AgentOps early-detection and root-cause-
@@ -454,9 +531,9 @@ Table of Contents
    model and used as a diagnosis workload, but its network-task score is
    not an AgentOps diagnosis score.
 
-6.  Operational Considerations
+7.  Operational Considerations
 
-6.1.  Collection and Sampling
+7.1.  Collection and Sampling
 
    Sampling decisions can destroy the evidence required for diagnosis.
    Implementations SHOULD retain task boundaries, delegation edges,
@@ -470,21 +547,21 @@ Table of Contents
    SHOULD support a deferred or tail-based retention decision triggered
    by anomalies, assertion violations, or terminal failures.
 
-6.2.  Clock and Ordering
+7.2.  Clock and Ordering
 
    All timestamps MUST follow [RFC3339] and SHOULD be expressed in UTC.
    Implementations SHOULD record clock-quality information when cross-
    host ordering affects diagnosis.  Causal parent links take precedence
    over wall clock order when the two conflict.
 
-6.3.  Schema Evolution
+7.3.  Schema Evolution
 
    Major incompatible revisions MUST change schema_version.  Consumers
    MUST ignore unknown optional fields and preserve them when forwarding
    records.  Required fields defined by a future major version MUST NOT
    be assumed by a consumer that only supports this version.
 
-7.  Privacy Considerations
+8.  Privacy Considerations
 
    Agent trajectories can contain user prompts, personal data,
    credentials, proprietary source code, retrieved documents, model
@@ -507,7 +584,7 @@ Table of Contents
    for a declared diagnostic purpose and protected by an applicable
    policy.
 
-8.  Security Considerations
+9.  Security Considerations
 
    AgentOps telemetry is security-sensitive.  It can expose
    instructions, system topology, tool capabilities, failure patterns,
@@ -537,11 +614,11 @@ Table of Contents
    sequence numbers, and duplicate detection.  Cross-domain trace
    identifiers MUST NOT be accepted as proof of trust or identity.
 
-9.  IANA Considerations
+10.  IANA Considerations
 
    This document has no IANA actions.
 
-10.  Implementation Status
+11.  Implementation Status
 
    This section is to be removed before publication as an RFC.  The
    event model is based on telemetry fields used in ongoing AgentOps
@@ -551,9 +628,9 @@ Table of Contents
    mappings to existing OpenTelemetry representations and validation of
    the CDDL examples.
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -564,7 +641,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [AGENTOPS-BENCH]
               "Benchmarking Failure Detection and Root-Cause Diagnosis
