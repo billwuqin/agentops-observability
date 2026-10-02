@@ -497,7 +497,7 @@ Table of Contents
      number = int / float
      }
 
-              Figure 2: Anomaly Signal Record
+                   Figure 3: Anomaly Signal Record
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
@@ -630,7 +630,7 @@ Table of Contents
       |        |                | environment                          |
       +--------+----------------+--------------------------------------+
 
-                Figure 3: Initial Failure Category Classes
+                Figure 4: Initial Failure Category Classes
 
    Future specifications can define stable category identifiers.
    Collectors MUST preserve unknown categories. # Benchmarking

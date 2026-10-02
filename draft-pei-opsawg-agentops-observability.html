@@ -1737,7 +1737,9 @@ branch, retry, checkpoint, and dependency relationships.<a href="#section-5.1-3.
    or lower score indicates greater deviation.  It <span class="bcp14">SHOULD</span> include the
    threshold, feature groups, confidence, and the earliest candidate
    event.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-2">
+<span id="name-anomaly-signal-record"></span><div id="signal">
+<figure id="figure-3">
+          <div class="alignCenter art-text artwork" id="section-5.2-2.1">
 <pre>
    anomaly = {
      schema_version: tstr,
@@ -1757,17 +1759,16 @@ branch, retry, checkpoint, and dependency relationships.<a href="#section-5.1-3.
      recommended_action: "observe" / "checkpoint" / "retry" / "reroute" / "constrain" / "terminate"
      number = int / float
      }
-</pre><a href="#section-5.2-2" class="pilcrow">¶</a>
+</pre>
 </div>
-<div class="alignLeft art-text artwork" id="section-5.2-3">
-<pre>
-           Figure 2: Anomaly Signal Record
-</pre><a href="#section-5.2-3" class="pilcrow">¶</a>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-anomaly-signal-record" class="selfRef">Anomaly Signal Record</a>
+          </figcaption></figure>
 </div>
-<p id="section-5.2-4">The candidate_event_ids array is a ranked set.  A detector <span class="bcp14">SHOULD</span>
+<p id="section-5.2-3">The candidate_event_ids array is a ranked set.  A detector <span class="bcp14">SHOULD</span>
    emit a compact, evidence-preserving candidate set rather than copying
    the complete trajectory into the anomaly record.  The original events
-   <span class="bcp14">MUST</span> remain retrievable for audit and attribution.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+   <span class="bcp14">MUST</span> remain retrievable for audit and attribution.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="assertions-and-trust-levels">
@@ -1910,7 +1911,7 @@ before the failure propagated.<a href="#section-6.1-3.5.1" class="pilcrow">¶</a
    category is auxiliary; responsible-actor and root-cause-event labels
    remain the primary interoperable targets.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <span id="name-initial-failure-category-cl"></span><div id="tab-cate-class">
-<figure id="figure-3">
+<figure id="figure-4">
           <div class="alignLeft art-text artwork" id="section-6.3-2.1">
 <pre>
     +========+================+======================================+
@@ -1935,7 +1936,7 @@ before the failure propagated.<a href="#section-6.1-3.5.1" class="pilcrow">¶</a
     +--------+----------------+--------------------------------------+
 </pre>
 </div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-initial-failure-category-cl" class="selfRef">Initial Failure Category Classes</a>
           </figcaption></figure>
 </div>
