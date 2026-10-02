@@ -500,6 +500,7 @@ carried by existing telemetry systems.
    events used as evidence.
 
 ~~~~
+
    assertion = {
      schema_version: tstr,
      assertion_event_id: tstr,
@@ -509,10 +510,11 @@ carried by existing telemetry systems.
      assertion_id: tstr,
      result: "pass" / "approaching" / "violation" / "unknown",
      evidence_event_ids: [* tstr],
-     ? measured_value: any,
-     ? boundary_value: any,
-     ? remediation: tstr
+     measured_value: any,
+     boundary_value: any,
+     remediation: tstr
    }
+
 ~~~~
 {: #assert-record title="Trust Level Assertion Record"}
 
