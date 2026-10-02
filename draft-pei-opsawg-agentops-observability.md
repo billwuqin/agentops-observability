@@ -10,18 +10,10 @@ date:
 consensus: true
 v: 3
 area: AREA
-workgroup: WG Working Group
+workgroup: OPSAWG Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
-venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+ - agent operation
+ - observability
 
 author:
  -
@@ -36,33 +28,28 @@ author:
     fullname: Jingjing Li
     organization: CNIC
     email: chpei@cnic.cn
+
 normative:
 
 informative:
-
   W3C-TRACE-CONTEXT:
     title: W3C Recommendation on Trace Context
     target: https://www.w3.org/TR/trace-context/
     date: 23 November 2021
-
   OTEL-SEMCONV:
     title: OpenTelemetry Semantic Conventions
     target: https://opentelemetry.io/docs/specs/semconv/
     date: 2026
-
   WHO-WHEN:
     title: Which Agent Causes Task Failures and When? On Automated Failure Attribution of LLM Multi-Agent Systems
     target: https://arxiv.org/abs/2505.00212
     date: 2025
-
   DUOTRACE:
     title: Detect Before You Attribute - Cascade Failure Attribution for Multi-Agent Systems
     date: 2026
-
   LONGRCA:
     title: LongRCABench - Diagnosing Responsible Actors and Root Causes in Long-Horizon Agent Failures
     date: 2026
-
   AGENTOPS-BENCH:
     title: Benchmarking Failure Detection and Root-Cause Diagnosis for Agentic Systems
     date: 2026
@@ -474,13 +461,13 @@ carried by existing telemetry systems.
      score_direction: "higher-is-more-anomalous" /
                       "lower-is-more-anomalous",
      candidate_event_ids: [+ tstr],
-     ? earliest_candidate_event_id: tstr,
-     ? threshold: number,
-     ? confidence: float,
-     ? feature_groups: [* ("semantic" / "topology" / "resource" /
+     earliest_candidate_event_id: tstr,
+     threshold: number,
+     confidence: float,
+     feature_groups: [* ("semantic" / "topology" / "resource" /
                             "state" / "assertion" / tstr)],
-     ? explanation_ref: evidence-ref,
-     ? recommended_action: "observe" / "checkpoint" / "retry" /
+     explanation_ref: evidence-ref,
+     recommended_action: "observe" / "checkpoint" / "retry" /
                            "reroute" / "constrain" / "terminate"
    }
    number = int / float
@@ -577,12 +564,11 @@ carried by existing telemetry systems.
      terminal_event_id: tstr,
      evidence_event_ids: [+ tstr],
      failure_chain: [+ chain-link],
-     ? category: tstr,
-     ? rationale_ref: evidence-ref,
-     ? confidence: float,
-     ? validation: "unvalidated" / "machine-validated" /
-                   "human-adjudicated",
-     ? contributing_actor_ids: [* tstr]
+     category: tstr,
+     rationale_ref: evidence-ref,
+     confidence: float,
+     validation: "unvalidated" / "machine-validated" / "human-adjudicated",
+     contributing_actor_ids: [* tstr]
    }
 
    chain-link = {
