@@ -436,6 +436,8 @@ Table of Contents
      provenance: "observed" / "self-reported" / "derived"
    }
 
+          Figure 2: Network Incident Management Architecture
+
 5.  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite

@@ -1596,7 +1596,9 @@ remediation, and audit.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
 <p id="section-4.5-1">The following Concise Data Definition Language (CDDL) <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span>
    fragment defines the JSON-compatible logical record.  JSON
    serialization <span class="bcp14">MUST</span> follow <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.5-2">
+<span id="name-network-incident-management"></span><div id="arch">
+<figure id="figure-2">
+          <div class="alignCenter art-text artwork" id="section-4.5-2.1">
 <pre>
    agentops-record = event / anomaly / assertion / diagnosis
    event = {
@@ -1656,7 +1658,11 @@ remediation, and audit.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
      sensitivity: "public" / "internal" / "confidential" / "restricted",
      provenance: "observed" / "self-reported" / "derived"
    }
-</pre><a href="#section-4.5-2" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-network-incident-management" class="selfRef">Network Incident Management Architecture</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
