@@ -462,6 +462,7 @@ carried by existing telemetry systems.
      number = int / float
      }
 ~~~~
+{: #signal-record title="Anomaly Sigal Record" artwork-align="center"}
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
@@ -556,7 +557,6 @@ carried by existing telemetry systems.
      validation: "unvalidated" / "machine-validated" / "human-adjudicated",
      contributing_actor_ids: [* tstr]
    }
-
    chain-link = {
      event_id: tstr,
      role: "root-cause" / "propagation" / "exposure" / "terminal",
