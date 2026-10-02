@@ -436,7 +436,7 @@ Table of Contents
      provenance: "observed" / "self-reported" / "derived"
    }
 
-             Figure 2: Tree Structure of OAM Unitary Test
+                 Figure 2: AgentOps Core Event Model
 
 5.  Benchmarking Considerations
 
