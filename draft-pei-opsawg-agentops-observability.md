@@ -277,6 +277,7 @@ carried by existing telemetry systems.
 
    This document defines the following initial event types:
 
+~~~~
    +=================================+================================+
    | Event type                      | Meaning                        |
    +=================================+================================+
@@ -314,6 +315,7 @@ carried by existing telemetry systems.
    +---------------------------------+--------------------------------+
    | diagnosis.result                | Attribution engine output      |
    +---------------------------------+--------------------------------+
+~~~~
 {: #table-event-type title="Initial AgentOps Event Types"}
 
    Unknown event types MUST be preserved by collectors and MUST NOT
