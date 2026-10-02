@@ -82,6 +82,7 @@ Table of Contents
    4.  Event Model
      4.1.  Event Envelope
      4.2.  Actor and Phase
+     4.3.  Event Types
    5.  Benchmarking Considerations
    6.  Operational Considerations
      6.1.  Collection and Sampling
@@ -300,6 +301,54 @@ Table of Contents
 
    *  post-execution: final verification, result publication, diagnosis,
       remediation, and audit.
+
+4.3.  Event Types
+
+   This document defines the following initial event types:
+
+    +=================================+================================+
+    | Event type                      | Meaning                        |
+    +=================================+================================+
+    | session.start, session.end      | Task or session boundary       |
+    +---------------------------------+--------------------------------+
+    | task.received                   | Input and constraints accepted |
+    +---------------------------------+--------------------------------+
+    | plan.created, plan.revised      | Plan or decomposition changed  |
+    +---------------------------------+--------------------------------+
+    | agent.delegated, agent.returned | Responsibility transferred or  |
+    |                                 | returned                       |
+    +---------------------------------+--------------------------------+
+    | model.request, model.response   | Model interaction boundary     |
+    +---------------------------------+--------------------------------+
+    | tool.call, tool.result          | Tool interaction boundary      |
+    +---------------------------------+--------------------------------+
+    | memory.read, memory.write       | Persistent or session state    |
+    |                                 | access                         |
+    +---------------------------------+--------------------------------+
+    | checkpoint.created,             | Recoverable state boundary     |
+    | checkpoint.restored             |                                |
+    +---------------------------------+--------------------------------+
+    | assertion.evaluated             | TLA or policy assertion        |
+    |                                 | evaluated                      |
+    +---------------------------------+--------------------------------+
+    | verification.result             | Intermediate or final          |
+    |                                 | verification                   |
+    +---------------------------------+--------------------------------+
+    | recovery.attempt                | Retry, rollback, reroute, or   |
+    |                                 | repair action                  |
+    +---------------------------------+--------------------------------+
+    | human.intervention              | Human decision or correction   |
+    +---------------------------------+--------------------------------+
+    | anomaly.signal                  | Detector output                |
+    +---------------------------------+--------------------------------+
+    | diagnosis.result                | Attribution engine output      |
+    +---------------------------------+--------------------------------+
+
+                 Figure 1: Initial AgentOps Event Types
+
+   Unknown event types MUST be preserved by collectors and MUST NOT
+   cause the containing trajectory to be rejected.  Their semantics are
+   extension data.
 
 5.  Benchmarking Considerations
 
