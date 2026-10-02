@@ -218,6 +218,205 @@ carried by existing telemetry systems.
    phase, action kind, delegation, state references, and evidence needed
    to distinguish causal origin from downstream manifestation.
 
+# Event Model
+
+##  Event Envelope
+
+   Each event record MUST contain:
+
+   *  schema_version, identifying the version of this event model;
+
+   *  event_id, unique within the telemetry domain;
+
+   *  session_id, stable across the complete task trajectory;
+
+   *  timestamp, formatted according to {{?RFC3339}};
+
+   *  sequence, a monotonically increasing value within the producing
+      actor;
+
+   *  actor, identifying the actor and its operational role;
+
+   *  phase, identifying the agentic lifecycle phase;
+
+   *  event_type, identifying the operation represented by the event;
+      and
+
+   *  status, describing the event outcome known at emission time.
+
+   Each event SHOULD contain trace_id, span_id, and parent_span_id when
+   distributed trace context exists.  It SHOULD contain parent_event_ids
+   when the execution topology cannot be represented by a single parent
+   span.
+
+   The sequence field orders events from one producer.  Consumers MUST
+   NOT assume that it establishes a total order across producers.
+   Consumers SHOULD use causal links, timestamps, and producer-local
+   sequence numbers together.
+
+##  Actor and Phase
+
+   The actor.kind value MUST be one of human, agent, orchestrator,
+   model, tool, verifier, environment, or other.  The actor.id value
+   MUST be stable within the session.  The actor.role value SHOULD
+   describe the functional role rather than a vendor-specific class
+   name.
+
+   The phase value MUST be one of:
+
+   *  pre-execution: request interpretation, constraint extraction,
+      planning, actor selection, and initial state construction;
+
+   *  execution: inference, delegation, tool use, memory access, state
+      update, and intermediate verification; or
+
+   *  post-execution: final verification, result publication, diagnosis,
+      remediation, and audit.
+
+##  Event Types
+
+   This document defines the following initial event types:
+
+   +=================================+================================+
+   | Event type                      | Meaning                        |
+   +=================================+================================+
+   | session.start, session.end      | Task or session boundary       |
+   +---------------------------------+--------------------------------+
+   | task.received                   | Input and constraints accepted |
+   +---------------------------------+--------------------------------+
+   | plan.created, plan.revised      | Plan or decomposition changed  |
+   +---------------------------------+--------------------------------+
+   | agent.delegated, agent.returned | Responsibility transferred or  |
+   |                                 | returned                       |
+   +---------------------------------+--------------------------------+
+   | model.request, model.response   | Model interaction boundary     |
+   +---------------------------------+--------------------------------+
+   | tool.call, tool.result          | Tool interaction boundary      |
+   +---------------------------------+--------------------------------+
+   | memory.read, memory.write       | Persistent or session state    |
+   |                                 | access                         |
+   +---------------------------------+--------------------------------+
+   | checkpoint.created,             | Recoverable state boundary     |
+   | checkpoint.restored             |                                |
+   +---------------------------------+--------------------------------+
+   | assertion.evaluated             | TLA or policy assertion        |
+   |                                 | evaluated                      |
+   +---------------------------------+--------------------------------+
+   | verification.result             | Intermediate or final          |
+   |                                 | verification                   |
+   +---------------------------------+--------------------------------+
+   | recovery.attempt                | Retry, rollback, reroute, or   |
+   |                                 | repair action                  |
+   +---------------------------------+--------------------------------+
+   | human.intervention              | Human decision or correction   |
+   +---------------------------------+--------------------------------+
+   | anomaly.signal                  | Detector output                |
+   +---------------------------------+--------------------------------+
+   | diagnosis.result                | Attribution engine output      |
+   +---------------------------------+--------------------------------+
+{: #table-event-type title="Initial AgentOps Event Types"}
+
+   Unknown event types MUST be preserved by collectors and MUST NOT
+   cause the containing trajectory to be rejected.  Their semantics are
+   extension data.
+
+##  Evidence and Content Handling
+
+   Events SHOULD record structured attributes required for diagnosis,
+   including action name, input and output references, tool result
+   status, model and tool versions, token usage, duration, delegation
+   target, verifier result, and checkpoint reference when applicable.
+
+   Large or sensitive content SHOULD be represented by an evidence_ref
+   containing a content hash, media type, access-controlled location,
+   and sensitivity label.  A collector MUST NOT dereference protected
+   evidence unless authorized for the relevant purpose.
+
+   Implementations MUST NOT require hidden model chain-of-thought.  An
+   implementation MAY record a model-generated decision summary,
+   reflection, or explanation when the model and deployment policy
+   permit it.  Such text MUST be labeled as self-reported evidence and
+   MUST NOT be treated as an authoritative description of internal model
+   computation.
+
+##  CDDL Definition
+
+   The following Concise Data Definition Language (CDDL) {{?RFC8610}}
+   fragment defines the JSON-compatible logical record.  JSON
+   serialization MUST follow {{?RFC8259}}.
+
+~~~~
+   agentops-record = event / anomaly / assertion / diagnosis
+
+   event = {
+     schema_version: tstr,
+     event_id: tstr,
+     session_id: tstr,
+     timestamp: tstr,
+     sequence: uint,
+     ? trace_id: tstr,
+     ? span_id: tstr,
+     ? parent_span_id: tstr,
+     ? parent_event_ids: [* tstr],
+     actor: actor,
+     phase: "pre-execution" / "execution" / "post-execution",
+     event_type: tstr,
+     status: "started" / "ok" / "error" / "cancelled" /
+             "unknown",
+     ? action: action,
+     ? delegation: delegation,
+     ? model: component,
+     ? tool: component,
+     ? checkpoint_id: tstr,
+     ? evidence: [* evidence-ref],
+     ? attributes: { * tstr => any }
+   }
+
+   actor = {
+     id: tstr,
+     kind: "human" / "agent" / "orchestrator" / "model" /
+           "tool" / "verifier" / "environment" / "other",
+     ? role: tstr,
+     ? instance: tstr,
+     ? version: tstr
+   }
+
+   action = {
+     kind: tstr,
+     ? name: tstr,
+     ? input_ref: evidence-ref,
+     ? output_ref: evidence-ref,
+     ? duration_ms: uint,
+     ? token_input: uint,
+     ? token_output: uint
+   }
+
+   delegation = {
+     from_actor: tstr,
+     to_actor: tstr,
+     instruction_ref: evidence-ref,
+     ? constraints_ref: evidence-ref
+   }
+
+   component = {
+     name: tstr,
+     ? provider: tstr,
+     ? version: tstr,
+     ? call_id: tstr
+   }
+
+   evidence-ref = {
+     id: tstr,
+     ? media_type: tstr,
+     ? hash: tstr,
+     ? location: tstr,
+     ? sensitivity: "public" / "internal" / "confidential" /
+                    "restricted",
+     ? provenance: "observed" / "self-reported" / "derived"
+   }
+~~~~
+{: #event-model title="AgentOps Core Event Model"}
+
 #  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite
