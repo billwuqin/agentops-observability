@@ -1596,6 +1596,33 @@ remediation, and audit.<a href="#section-4.2-3.3.1" class="pilcrow">¶</a></p>
 <p id="section-4.5-1">The following Concise Data Definition Language (CDDL) <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span>
    fragment defines the JSON-compatible logical record.  JSON
    serialization <span class="bcp14">MUST</span> follow <span>[<a href="#RFC8259" class="cite xref">RFC8259</a>]</span>.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.5-2">
+<pre>
+   agentops-record = event / anomaly / assertion / diagnosis
+   event = {
+     schema_version: tstr,
+     event_id: tstr,
+     session_id: tstr,
+     timestamp: tstr,
+     sequence: uint,
+     trace_id: tstr,
+     span_id: tstr,
+     parent_span_id: tstr,
+     parent_event_ids: [* tstr],
+     actor: actor,
+     phase: "pre-execution" / "execution" / "post-execution",
+     event_type: tstr,
+     status: "started" / "ok" / "error" / "cancelled" / "unknown",
+     action: action,
+     delegation: delegation,
+     model: component,
+     tool: component,
+     checkpoint_id: tstr,
+     evidence: [* evidence-ref],
+     attributes: { * tstr =&gt; any }
+   }
+</pre><a href="#section-4.5-2" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 </section>
