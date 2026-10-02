@@ -406,6 +406,7 @@ carried by existing telemetry systems.
      sensitivity: "public" / "internal" / "confidential" / "restricted",
      provenance: "observed" / "self-reported" / "derived"
    }
+}
 ~~~~
 {: #core-event-model title="AgentOps Core Event Model" artwork-align="center"}
 
@@ -458,8 +459,8 @@ carried by existing telemetry systems.
      feature_groups: [* ("semantic" / "topology" / "resource" / "state" / "assertion" / tstr)],
      explanation_ref: evidence-ref,
      recommended_action: "observe" / "checkpoint" / "retry" / "reroute" / "constrain" / "terminate"
-   }
-   number = int / float
+     number = int / float
+     }
 ~~~~
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
