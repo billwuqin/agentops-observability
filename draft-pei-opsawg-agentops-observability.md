@@ -9,8 +9,8 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: OPSAWG Working Group
+area: "Operations and Management"
+workgroup: "Operations and Management Area Working Group"
 keyword:
  - agent operation
  - observability
