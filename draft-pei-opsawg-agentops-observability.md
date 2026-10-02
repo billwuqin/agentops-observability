@@ -407,7 +407,7 @@ carried by existing telemetry systems.
      provenance: "observed" / "self-reported" / "derived"
    }
 ~~~~
- {: #arch title="Network Incident Management Architecture" artwork-align="center"}
+ {: #event-model title="AgentOps Core Event Model" artwork-align="center"}
 
 #  Benchmarking Considerations
 
