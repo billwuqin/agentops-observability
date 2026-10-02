@@ -1226,7 +1226,18 @@ carried by existing telemetry systems.<a href="#section-abstract-1" class="pilcr
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-benchmarking-considerations" class="internal xref">Benchmarking Considerations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-root-cause-attribution" class="internal xref">Root-Cause Attribution</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-attribution-principles" class="internal xref">Attribution Principles</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-diagnosis-record" class="internal xref">Diagnosis Record</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-failure-categories" class="internal xref">Failure Categories</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
@@ -1785,23 +1796,149 @@ branch, retry, checkpoint, and dependency relationships.<a href="#section-5.1-3.
 </div>
 </section>
 </div>
-<div id="benchmarking-considerations">
+<div id="root-cause-attribution">
 <section id="section-6">
-      <h2 id="name-benchmarking-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-benchmarking-considerations" class="section-name selfRef">Benchmarking Considerations</a>
+      <h2 id="name-root-cause-attribution">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-root-cause-attribution" class="section-name selfRef">Root-Cause Attribution</a>
       </h2>
-<p id="section-6-1">This document standardizes observability evidence, not a task suite
+<div id="attribution-principles">
+<section id="section-6.1">
+        <h3 id="name-attribution-principles">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-attribution-principles" class="section-name selfRef">Attribution Principles</a>
+        </h3>
+<p id="section-6.1-1">An attribution engine <span class="bcp14">MUST</span> distinguish at least four causal-chain
+   roles: root-cause, propagation, exposure, and terminal.  It <span class="bcp14">MUST NOT</span>
+   select an exposure or terminal event solely because it is closest to
+   the observed failure.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">Attribution <span class="bcp14">SHOULD</span> apply the following responsibility rules:<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-3.1">
+            <p id="section-6.1-3.1.1">If an executor faithfully implements a defective delegated
+instruction, the delegating actor and instruction event are the
+primary root-cause candidates.  The executor event is propagation
+evidence.<a href="#section-6.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-3.2">
+            <p id="section-6.1-3.2.1">If the executor departs from a valid instruction or introduces a
+new defect, responsibility remains with the executor.<a href="#section-6.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-3.3">
+            <p id="section-6.1-3.3.1">A verifier that exposes a defect is not the root cause.  A
+verifier that misses a detectable defect can be a contributing
+factor.<a href="#section-6.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-3.4">
+            <p id="section-6.1-3.4.1">If an external requirement is self-contradictory or an environment
+failure is unrecoverable, a non-agent source can be the
+responsible actor.<a href="#section-6.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-3.5">
+            <p id="section-6.1-3.5.1">Among causally sufficient candidates, the engine <span class="bcp14">SHOULD</span> select the
+earliest decisive event for which a feasible recovery existed
+before the failure propagated.<a href="#section-6.1-3.5.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-6.1-4">These rules allow responsibility to move across planner-executor-
+   verifier handoffs without automatically blaming either the first or
+   last actor.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="diagnosis-record">
+<section id="section-6.2">
+        <h3 id="name-diagnosis-record">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-diagnosis-record" class="section-name selfRef">Diagnosis Record</a>
+        </h3>
+<p id="section-6.2-1">A diagnosis record <span class="bcp14">MUST</span> identify the responsible actor, root-cause
+   event, terminal event, supporting evidence, and method.  It <span class="bcp14">SHOULD</span>
+   include the failure chain, category, confidence, and validation
+   status.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.2-2">
+<pre>
+   diagnosis = {
+     schema_version: tstr,
+     diagnosis_id: tstr,
+     session_id: tstr,
+     created_at: tstr,
+     method: component,
+     responsible_actor_id: tstr,
+     root_cause_event_id: tstr,
+     terminal_event_id: tstr,
+     evidence_event_ids: [+ tstr],
+     failure_chain: [+ chain-link],
+     category: tstr,
+     rationale_ref: evidence-ref,
+     confidence: float,
+     validation: "unvalidated" / "machine-validated" / "human-adjudicated",
+     contributing_actor_ids: [* tstr]
+   }
+
+   chain-link = {
+     event_id: tstr,
+     role: "root-cause" / "propagation" / "exposure" / "terminal",
+     actor_id: tstr
+   }
+</pre><a href="#section-6.2-2" class="pilcrow">¶</a>
+</div>
+<p id="section-6.2-3">The evidence_event_ids values <span class="bcp14">MUST</span> resolve to events in the original
+   trajectory.  Derived summaries can be included through rationale_ref,
+   but they <span class="bcp14">MUST NOT</span> replace the source evidence.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="failure-categories">
+<section id="section-6.3">
+        <h3 id="name-failure-categories">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-failure-categories" class="section-name selfRef">Failure Categories</a>
+        </h3>
+<p id="section-6.3-1">Implementations <span class="bcp14">MAY</span> use the following initial analysis taxonomy.  The
+   category is auxiliary; responsible-actor and root-cause-event labels
+   remain the primary interoperable targets.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<span id="name-initial-failure-category-cl"></span><div id="tab-cate-class">
+<figure id="figure-3">
+          <div class="alignLeft art-text artwork" id="section-6.3-2.1">
+<pre>
+    +========+================+======================================+
+    | Prefix | Class          | Example leaf categories              |
+    +========+================+======================================+
+    | A      | Input          | misunderstood intent, ignored        |
+    |        | understanding  | constraint, misread observation      |
+    +--------+----------------+--------------------------------------+
+    | B      | Reasoning      | fabrication, flawed reasoning        |
+    +--------+----------------+--------------------------------------+
+    | C      | Planning and   | flawed plan, wrong handoff, cross-   |
+    |        | collaboration  | actor state loss                     |
+    +--------+----------------+--------------------------------------+
+    | D      | Execution and  | wrong tool or arguments, unrecovered |
+    |        | tools          | tool failure, repetition             |
+    +--------+----------------+--------------------------------------+
+    | E      | Verification   | verification gap, premature          |
+    |        | and completion | completion                           |
+    +--------+----------------+--------------------------------------+
+    | X      | Non-agent      | contradictory input, unrecoverable   |
+    |        |                | environment                          |
+    +--------+----------------+--------------------------------------+
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-initial-failure-category-cl" class="selfRef">Initial Failure Category Classes</a>
+          </figcaption></figure>
+</div>
+<p id="section-6.3-3">Future specifications can define stable category identifiers.
+   Collectors <span class="bcp14">MUST</span> preserve unknown categories.
+#  Benchmarking Considerations<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-4">This document standardizes observability evidence, not a task suite
    or scoring methodology.  AgentOps early-detection and root-cause-
    diagnosis benchmark requirements are specified separately in
-   <span>[<a href="#AGENTOPS-BENCH" class="cite xref">AGENTOPS-BENCH</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">In particular, an AgentOps diagnosis benchmark is distinct from a
+   <span>[<a href="#AGENTOPS-BENCH" class="cite xref">AGENTOPS-BENCH</a>]</span>.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
+<p id="section-6.3-5">In particular, an AgentOps diagnosis benchmark is distinct from a
    benchmark of an agent that performs network configuration or other
    network operations.  The latter evaluates the agent's task capability
    and network outcome; the former evaluates whether an operational
    method can detect and diagnose a failure in an agentic system.  A
    network-management-agent trajectory can be encoded using this event
    model and used as a diagnosis workload, but its network-task score is
-   not an AgentOps diagnosis score.<a href="#section-6-2" class="pilcrow">¶</a></p>
+   not an AgentOps diagnosis score.<a href="#section-6.3-5" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="operational-considerations">
