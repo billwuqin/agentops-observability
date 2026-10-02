@@ -409,6 +409,94 @@ carried by existing telemetry systems.
 ~~~~
 {: #core-event-model title="AgentOps Core Event Model" artwork-align="center"}
 
+# Early Failure Detection
+
+##  Baselines and Partial-Trajectory Evaluation
+
+   A detector operates on a partial trajectory and compares it with an
+   explicit baseline.  The baseline can represent successful executions,
+   policy-conforming executions, a known model or tool version, or an
+   application-defined TLA level.
+
+   A detector SHOULD consider both:
+
+   *  semantic evidence, such as actor role, operation, constraint, tool
+      result, and state transition; and
+
+   *  structural evidence, such as delegation topology, call tree,
+      branch, retry, checkpoint, and dependency relationships.
+
+   This dual view is important because an individually plausible action
+   can be anomalous in its topological or role context, while a
+   structurally unusual action can be semantically correct.  The
+   specification does not mandate a particular detector.
+   Reconstruction, prediction, assertion, spectrum, statistical, and
+   hybrid detectors can all produce conforming anomaly records.
+
+##  Anomaly Signal
+
+   An anomaly record MUST identify the detector, baseline, detection
+   time, score, and candidate event set.  It MUST state whether a higher
+   or lower score indicates greater deviation.  It SHOULD include the
+   threshold, feature groups, confidence, and the earliest candidate
+   event.
+
+   ~~~~
+   anomaly = {
+     schema_version: tstr,
+     anomaly_id: tstr,
+     session_id: tstr,
+     detected_at: tstr,
+     detector: component,
+     baseline_id: tstr,
+     score: number,
+     score_direction: "higher-is-more-anomalous" / "lower-is-more-anomalous",
+     candidate_event_ids: [+ tstr],
+     earliest_candidate_event_id: tstr,
+     threshold: number,
+     confidence: float,
+     feature_groups: [* ("semantic" / "topology" / "resource" / "state" / "assertion" / tstr)],
+     explanation_ref: evidence-ref,
+     recommended_action: "observe" / "checkpoint" / "retry" / "reroute" / "constrain" / "terminate"
+   }
+   number = int / float
+~~~~
+{: #anomaly-record title="Anomaly Signal Record" artwork-align="center"}
+
+   The candidate_event_ids array is a ranked set.  A detector SHOULD
+   emit a compact, evidence-preserving candidate set rather than copying
+   the complete trajectory into the anomaly record.  The original events
+   MUST remain retrievable for audit and attribution.
+
+##  Assertions and Trust Levels
+
+   Application assertions provide a deterministic complement to
+   statistical detection.  An assertion record MUST identify the
+   applicable TLA level, assertion identifier, evaluation result, and
+   events used as evidence.
+
+~~~~
+   assertion = {
+     schema_version: tstr,
+     assertion_event_id: tstr,
+     session_id: tstr,
+     timestamp: tstr,
+     tla_level: tstr,
+     assertion_id: tstr,
+     result: "pass" / "approaching" / "violation" / "unknown",
+     evidence_event_ids: [* tstr],
+     measured_value: any,
+     boundary_value: any,
+     remediation: tstr
+   }
+~~~~
+{: #assert-record title="Trust Level Assertion Record" artwork-align="center"}
+
+   The approaching result supports risk prediction before a hard
+   boundary is crossed.  Trust levels and boundaries are application-
+   specific; this document standardizes their observability, not their
+   values.
+
 #  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite
