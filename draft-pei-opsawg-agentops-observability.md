@@ -461,7 +461,6 @@ carried by existing telemetry systems.
    }
    number = int / float
 ~~~~
-{: #anomaly-record title="Anomaly Signal Record" artwork-align="center"}
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
@@ -490,7 +489,6 @@ carried by existing telemetry systems.
      remediation: tstr
    }
 ~~~~
-{: #assert-record title="Trust Level Assertion Record" artwork-align="center"}
 
    The approaching result supports risk prediction before a hard
    boundary is crossed.  Trust levels and boundaries are application-
