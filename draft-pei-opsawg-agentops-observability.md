@@ -273,6 +273,53 @@ carried by existing telemetry systems.
    *  post-execution: final verification, result publication, diagnosis,
       remediation, and audit.
 
+##  Event Types
+
+   This document defines the following initial event types:
+
+   +=================================+================================+
+   | Event type                      | Meaning                        |
+   +=================================+================================+
+   | session.start, session.end      | Task or session boundary       |
+   +---------------------------------+--------------------------------+
+   | task.received                   | Input and constraints accepted |
+   +---------------------------------+--------------------------------+
+   | plan.created, plan.revised      | Plan or decomposition changed  |
+   +---------------------------------+--------------------------------+
+   | agent.delegated, agent.returned | Responsibility transferred or  |
+   |                                 | returned                       |
+   +---------------------------------+--------------------------------+
+   | model.request, model.response   | Model interaction boundary     |
+   +---------------------------------+--------------------------------+
+   | tool.call, tool.result          | Tool interaction boundary      |
+   +---------------------------------+--------------------------------+
+   | memory.read, memory.write       | Persistent or session state    |
+   |                                 | access                         |
+   +---------------------------------+--------------------------------+
+   | checkpoint.created,             | Recoverable state boundary     |
+   | checkpoint.restored             |                                |
+   +---------------------------------+--------------------------------+
+   | assertion.evaluated             | TLA or policy assertion        |
+   |                                 | evaluated                      |
+   +---------------------------------+--------------------------------+
+   | verification.result             | Intermediate or final          |
+   |                                 | verification                   |
+   +---------------------------------+--------------------------------+
+   | recovery.attempt                | Retry, rollback, reroute, or   |
+   |                                 | repair action                  |
+   +---------------------------------+--------------------------------+
+   | human.intervention              | Human decision or correction   |
+   +---------------------------------+--------------------------------+
+   | anomaly.signal                  | Detector output                |
+   +---------------------------------+--------------------------------+
+   | diagnosis.result                | Attribution engine output      |
+   +---------------------------------+--------------------------------+
+{: #table-event-type title="Initial AgentOps Event Types"}
+
+   Unknown event types MUST be preserved by collectors and MUST NOT
+   cause the containing trajectory to be rejected.  Their semantics are
+   extension data.
+
 #  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite
