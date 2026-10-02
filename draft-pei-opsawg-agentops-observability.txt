@@ -436,7 +436,7 @@ Table of Contents
      provenance: "observed" / "self-reported" / "derived"
    }
 
-          Figure 2: Network Incident Management Architecture
+             Figure 2: Tree Structure of OAM Unitary Test
 
 5.  Benchmarking Considerations
 
