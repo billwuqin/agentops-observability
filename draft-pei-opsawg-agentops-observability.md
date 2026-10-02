@@ -407,7 +407,8 @@ carried by existing telemetry systems.
      provenance: "observed" / "self-reported" / "derived"
    }
 ~~~~
-
+ {:#arch title="Network Incident Management Architecture" artwork-align="center"}
+ 
 #  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite
