@@ -478,16 +478,26 @@ Table of Contents
    threshold, feature groups, confidence, and the earliest candidate
    event.
 
-   ~~~~ anomaly = { schema_version: tstr, anomaly_id: tstr, session_id:
-   tstr, detected_at: tstr, detector: component, baseline_id: tstr,
-   score: number, score_direction: "higher-is-more-anomalous" / "lower-
-   is-more-anomalous", candidate_event_ids: [+ tstr],
-   earliest_candidate_event_id: tstr, threshold: number, confidence:
-   float, feature_groups: [* ("semantic" / "topology" / "resource" /
-   "state" / "assertion" / tstr)], explanation_ref: evidence-ref,
-   recommended_action: "observe" / "checkpoint" / "retry" / "reroute" /
-   "constrain" / "terminate" number = int / float } ~~~~ Figure 2:
-   Anomaly Signal Record
+   anomaly = {
+     schema_version: tstr,
+     anomaly_id: tstr,
+     session_id: tstr,
+     detected_at: tstr,
+     detector: component,
+     baseline_id: tstr,
+     score: number,
+     score_direction: "higher-is-more-anomalous" / "lower-is-more-anomalous",
+     candidate_event_ids: [+ tstr],
+     earliest_candidate_event_id: tstr,
+     threshold: number,
+     confidence: float,
+     feature_groups: [* ("semantic" / "topology" / "resource" / "state" / "assertion" / tstr)],
+     explanation_ref: evidence-ref,
+     recommended_action: "observe" / "checkpoint" / "retry" / "reroute" / "constrain" / "terminate"
+     number = int / float
+     }
+
+              Figure 2: Anomaly Signal Record
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
