@@ -407,7 +407,7 @@ carried by existing telemetry systems.
      provenance: "observed" / "self-reported" / "derived"
    }
 ~~~~
-{: #oam-uni-test-tree-st title="AgentOps Core Event Model" artwork-align="center"}
+{: #core-event-model title="AgentOps Core Event Model" artwork-align="center"}
 
 #  Benchmarking Considerations
 
