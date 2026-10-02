@@ -511,21 +511,21 @@ Table of Contents
    applicable TLA level, assertion identifier, evaluation result, and
    events used as evidence.
 
-      assertion = {
-        schema_version: tstr,
-        assertion_event_id: tstr,
-        session_id: tstr,
-        timestamp: tstr,
-        tla_level: tstr,
-        assertion_id: tstr,
-        result: "pass" / "approaching" / "violation" / "unknown",
-        evidence_event_ids: [* tstr],
-        measured_value: any,
-        boundary_value: any,
-        remediation: tstr
-      }
+         assertion = {
+           schema_version: tstr,
+           assertion_event_id: tstr,
+           session_id: tstr,
+           timestamp: tstr,
+           tla_level: tstr,
+           assertion_id: tstr,
+           result: "pass" / "approaching" / "violation" / "unknown",
+           evidence_event_ids: [* tstr],
+           measured_value: any,
+           boundary_value: any,
+           remediation: tstr
+         }
 
-     Figure 3: Trust Level Assertion Record
+                   Figure 4: Trust Level Assertion Record
 
    The approaching result supports risk prediction before a hard
    boundary is crossed.  Trust levels and boundaries are application-
@@ -597,7 +597,7 @@ Table of Contents
      actor_id: tstr
    }
 
-      Figure 4: Root-Cause Diagnosis Record
+                Figure 5: Root-Cause Diagnosis Record
 
    The evidence_event_ids values MUST resolve to events in the original
    trajectory.  Derived summaries can be included through rationale_ref,
@@ -630,7 +630,7 @@ Table of Contents
       |        |                | environment                          |
       +--------+----------------+--------------------------------------+
 
-                Figure 4: Initial Failure Category Classes
+                Figure 6: Initial Failure Category Classes
 
    Future specifications can define stable category identifiers.
    Collectors MUST preserve unknown categories. # Benchmarking

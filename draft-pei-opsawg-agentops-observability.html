@@ -1780,7 +1780,9 @@ branch, retry, checkpoint, and dependency relationships.<a href="#section-5.1-3.
    statistical detection.  An assertion record <span class="bcp14">MUST</span> identify the
    applicable TLA level, assertion identifier, evaluation result, and
    events used as evidence.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.3-2">
+<span id="name-trust-level-assertion-recor"></span><div id="assert">
+<figure id="figure-4">
+          <div class="alignCenter art-text artwork" id="section-5.3-2.1">
 <pre>
    assertion = {
      schema_version: tstr,
@@ -1795,17 +1797,16 @@ branch, retry, checkpoint, and dependency relationships.<a href="#section-5.1-3.
      boundary_value: any,
      remediation: tstr
    }
-</pre><a href="#section-5.3-2" class="pilcrow">¶</a>
+</pre>
 </div>
-<div class="alignLeft art-text artwork" id="section-5.3-3">
-<pre>
-  Figure 3: Trust Level Assertion Record
-</pre><a href="#section-5.3-3" class="pilcrow">¶</a>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-trust-level-assertion-recor" class="selfRef">Trust Level Assertion Record</a>
+          </figcaption></figure>
 </div>
-<p id="section-5.3-4">The approaching result supports risk prediction before a hard
+<p id="section-5.3-3">The approaching result supports risk prediction before a hard
    boundary is crossed.  Trust levels and boundaries are application-
    specific; this document standardizes their observability, not their
-   values.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+   values.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1866,7 +1867,9 @@ before the failure propagated.<a href="#section-6.1-3.5.1" class="pilcrow">¶</a
    event, terminal event, supporting evidence, and method.  It <span class="bcp14">SHOULD</span>
    include the failure chain, category, confidence, and validation
    status.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-2">
+<span id="name-root-cause-diagnosis-record"></span><div id="diag">
+<figure id="figure-5">
+          <div class="alignCenter art-text artwork" id="section-6.2-2.1">
 <pre>
    diagnosis = {
      schema_version: tstr,
@@ -1890,16 +1893,15 @@ before the failure propagated.<a href="#section-6.1-3.5.1" class="pilcrow">¶</a
      role: "root-cause" / "propagation" / "exposure" / "terminal",
      actor_id: tstr
    }
-</pre><a href="#section-6.2-2" class="pilcrow">¶</a>
+</pre>
 </div>
-<div class="alignLeft art-text artwork" id="section-6.2-3">
-<pre>
-   Figure 4: Root-Cause Diagnosis Record
-</pre><a href="#section-6.2-3" class="pilcrow">¶</a>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-root-cause-diagnosis-record" class="selfRef">Root-Cause Diagnosis Record</a>
+          </figcaption></figure>
 </div>
-<p id="section-6.2-4">The evidence_event_ids values <span class="bcp14">MUST</span> resolve to events in the original
+<p id="section-6.2-3">The evidence_event_ids values <span class="bcp14">MUST</span> resolve to events in the original
    trajectory.  Derived summaries can be included through rationale_ref,
-   but they <span class="bcp14">MUST NOT</span> replace the source evidence.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+   but they <span class="bcp14">MUST NOT</span> replace the source evidence.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="failure-categories">
@@ -1911,7 +1913,7 @@ before the failure propagated.<a href="#section-6.1-3.5.1" class="pilcrow">¶</a
    category is auxiliary; responsible-actor and root-cause-event labels
    remain the primary interoperable targets.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <span id="name-initial-failure-category-cl"></span><div id="tab-cate-class">
-<figure id="figure-4">
+<figure id="figure-6">
           <div class="alignLeft art-text artwork" id="section-6.3-2.1">
 <pre>
     +========+================+======================================+
@@ -1936,7 +1938,7 @@ before the failure propagated.<a href="#section-6.1-3.5.1" class="pilcrow">¶</a
     +--------+----------------+--------------------------------------+
 </pre>
 </div>
-<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-initial-failure-category-cl" class="selfRef">Initial Failure Category Classes</a>
           </figcaption></figure>
 </div>
