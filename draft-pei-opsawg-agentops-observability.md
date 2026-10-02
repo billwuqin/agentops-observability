@@ -355,21 +355,21 @@ carried by existing telemetry systems.
      session_id: tstr,
      timestamp: tstr,
      sequence: uint,
-     ? trace_id: tstr,
-     ? span_id: tstr,
-     ? parent_span_id: tstr,
-     ? parent_event_ids: [* tstr],
+     trace_id: tstr,
+     span_id: tstr,
+     parent_span_id: tstr,
+     parent_event_ids: [* tstr],
      actor: actor,
      phase: "pre-execution" / "execution" / "post-execution",
      event_type: tstr,
      status: "started" / "ok" / "error" / "cancelled" / "unknown",
-     ? action: action,
-     ? delegation: delegation,
-     ? model: component,
-     ? tool: component,
-     ? checkpoint_id: tstr,
-     ? evidence: [* evidence-ref],
-     ? attributes: { * tstr => any }
+     action: action,
+     delegation: delegation,
+     model: component,
+     tool: component,
+     checkpoint_id: tstr,
+     evidence: [* evidence-ref],
+     attributes: { * tstr => any }
    }
    actor = {
      id: tstr,
@@ -380,12 +380,12 @@ carried by existing telemetry systems.
    }
    action = {
      kind: tstr,
-     ? name: tstr,
-     ? input_ref: evidence-ref,
-     ? output_ref: evidence-ref,
-     ? duration_ms: uint,
-     ? token_input: uint,
-     ? token_output: uint
+     name: tstr,
+     input_ref: evidence-ref,
+     output_ref: evidence-ref,
+     duration_ms: uint,
+     token_input: uint,
+     token_output: uint
    }
    delegation = {
      from_actor: tstr,
@@ -395,17 +395,17 @@ carried by existing telemetry systems.
    }
    component = {
      name: tstr,
-     ? provider: tstr,
-     ? version: tstr,
-     ? call_id: tstr
+     provider: tstr,
+     version: tstr,
+     call_id: tstr
    }
    evidence-ref = {
      id: tstr,
-     ? media_type: tstr,
-     ? hash: tstr,
-     ? location: tstr,
-     ? sensitivity: "public" / "internal" / "confidential" / "restricted",
-     ? provenance: "observed" / "self-reported" / "derived"
+     media_type: tstr,
+     hash: tstr,
+     location: tstr,
+     sensitivity: "public" / "internal" / "confidential" / "restricted",
+     provenance: "observed" / "self-reported" / "derived"
    }
 ~~~~
 {: #event-model title="AgentOps Core Event Model"}
