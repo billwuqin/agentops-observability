@@ -461,8 +461,9 @@ carried by existing telemetry systems.
      recommended_action: "observe" / "checkpoint" / "retry" / "reroute" / "constrain" / "terminate"
      number = int / float
      }
+               Figure 2: Anomaly Signal Record
 ~~~~
- {: #signal title="Anomaly Sigal Record" artwork-align="center"}
+
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
@@ -490,6 +491,7 @@ carried by existing telemetry systems.
      boundary_value: any,
      remediation: tstr
    }
+      Figure 3: Trust Level Assertion Record
 ~~~~
 
    The approaching result supports risk prediction before a hard
@@ -562,6 +564,7 @@ carried by existing telemetry systems.
      role: "root-cause" / "propagation" / "exposure" / "terminal",
      actor_id: tstr
    }
+       Figure 4: Root-Cause Diagnosis Record
 ~~~~
 
    The evidence_event_ids values MUST resolve to events in the original
