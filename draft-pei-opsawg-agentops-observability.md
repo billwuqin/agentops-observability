@@ -491,7 +491,7 @@ carried by existing telemetry systems.
      remediation: tstr
    }
 ~~~~
-      Figure 3: Trust Level Assertion Record
+{: #assert title="Trust Level Assertion Record" artwork-align="center"}
 
    The approaching result supports risk prediction before a hard
    boundary is crossed.  Trust levels and boundaries are application-
@@ -564,7 +564,7 @@ carried by existing telemetry systems.
      actor_id: tstr
    }
 ~~~~
-       Figure 4: Root-Cause Diagnosis Record
+{: #diag title="Root-Cause Diagnosis Record" artwork-align="center"}
 
    The evidence_event_ids values MUST resolve to events in the original
    trajectory.  Derived summaries can be included through rationale_ref,
