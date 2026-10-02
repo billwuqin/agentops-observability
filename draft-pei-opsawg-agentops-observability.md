@@ -442,7 +442,7 @@ carried by existing telemetry systems.
    threshold, feature groups, confidence, and the earliest candidate
    event.
 
-   ~~~~
+~~~~
    anomaly = {
      schema_version: tstr,
      anomaly_id: tstr,
