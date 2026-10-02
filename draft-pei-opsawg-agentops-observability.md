@@ -495,6 +495,110 @@ carried by existing telemetry systems.
    specific; this document standardizes their observability, not their
    values.
 
+#  Root-Cause Attribution
+
+##  Attribution Principles
+
+   An attribution engine MUST distinguish at least four causal-chain
+   roles: root-cause, propagation, exposure, and terminal.  It MUST NOT
+   select an exposure or terminal event solely because it is closest to
+   the observed failure.
+
+   Attribution SHOULD apply the following responsibility rules:
+
+   *  If an executor faithfully implements a defective delegated
+      instruction, the delegating actor and instruction event are the
+      primary root-cause candidates.  The executor event is propagation
+      evidence.
+
+   *  If the executor departs from a valid instruction or introduces a
+      new defect, responsibility remains with the executor.
+
+   *  A verifier that exposes a defect is not the root cause.  A
+      verifier that misses a detectable defect can be a contributing
+      factor.
+
+   *  If an external requirement is self-contradictory or an environment
+      failure is unrecoverable, a non-agent source can be the
+      responsible actor.
+
+   *  Among causally sufficient candidates, the engine SHOULD select the
+      earliest decisive event for which a feasible recovery existed
+      before the failure propagated.
+
+   These rules allow responsibility to move across planner-executor-
+   verifier handoffs without automatically blaming either the first or
+   last actor.
+
+##  Diagnosis Record
+
+   A diagnosis record MUST identify the responsible actor, root-cause
+   event, terminal event, supporting evidence, and method.  It SHOULD
+   include the failure chain, category, confidence, and validation
+   status.
+
+~~~~
+   diagnosis = {
+     schema_version: tstr,
+     diagnosis_id: tstr,
+     session_id: tstr,
+     created_at: tstr,
+     method: component,
+     responsible_actor_id: tstr,
+     root_cause_event_id: tstr,
+     terminal_event_id: tstr,
+     evidence_event_ids: [+ tstr],
+     failure_chain: [+ chain-link],
+     category: tstr,
+     rationale_ref: evidence-ref,
+     confidence: float,
+     validation: "unvalidated" / "machine-validated" / "human-adjudicated",
+     contributing_actor_ids: [* tstr]
+   }
+
+   chain-link = {
+     event_id: tstr,
+     role: "root-cause" / "propagation" / "exposure" / "terminal",
+     actor_id: tstr
+   }
+~~~~
+
+   The evidence_event_ids values MUST resolve to events in the original
+   trajectory.  Derived summaries can be included through rationale_ref,
+   but they MUST NOT replace the source evidence.
+
+##  Failure Categories
+
+   Implementations MAY use the following initial analysis taxonomy.  The
+   category is auxiliary; responsible-actor and root-cause-event labels
+   remain the primary interoperable targets.
+
+~~~~
+    +========+================+======================================+
+    | Prefix | Class          | Example leaf categories              |
+    +========+================+======================================+
+    | A      | Input          | misunderstood intent, ignored        |
+    |        | understanding  | constraint, misread observation      |
+    +--------+----------------+--------------------------------------+
+    | B      | Reasoning      | fabrication, flawed reasoning        |
+    +--------+----------------+--------------------------------------+
+    | C      | Planning and   | flawed plan, wrong handoff, cross-   |
+    |        | collaboration  | actor state loss                     |
+    +--------+----------------+--------------------------------------+
+    | D      | Execution and  | wrong tool or arguments, unrecovered |
+    |        | tools          | tool failure, repetition             |
+    +--------+----------------+--------------------------------------+
+    | E      | Verification   | verification gap, premature          |
+    |        | and completion | completion                           |
+    +--------+----------------+--------------------------------------+
+    | X      | Non-agent      | contradictory input, unrecoverable   |
+    |        |                | environment                          |
+    +--------+----------------+--------------------------------------+
+~~~~
+{: #tab-cate-class title="Initial Failure Category Classes"}
+
+   Future specifications can define stable category identifiers.
+   Collectors MUST preserve unknown categories.
 #  Benchmarking Considerations
 
    This document standardizes observability evidence, not a task suite
