@@ -290,7 +290,6 @@ carried by existing telemetry systems.
 
    This document defines the following initial event types:
 
-~~~~
    +=================================+================================+
    | Event type                      | Meaning                        |
    +=================================+================================+
@@ -328,8 +327,7 @@ carried by existing telemetry systems.
    +---------------------------------+--------------------------------+
    | diagnosis.result                | Attribution engine output      |
    +---------------------------------+--------------------------------+
-~~~~
-{: #evnt-type title='Table 1: Initial AgentOps Event Types'}
+{: #table-event-type title="Initial AgentOps Event Types"}
 
    Unknown event types MUST be preserved by collectors and MUST NOT
    cause the containing trajectory to be rejected.  Their semantics are
@@ -430,7 +428,7 @@ carried by existing telemetry systems.
      ? provenance: "observed" / "self-reported" / "derived"
    }
 ~~~~
-{: #event-model title='AgentOps Core Event Model'}
+{: #event-model title="AgentOps Core Event Model"}
 
 # Early Failure Detection
 
@@ -463,6 +461,7 @@ carried by existing telemetry systems.
    or lower score indicates greater deviation.  It SHOULD include the
    threshold, feature groups, confidence, and the earliest candidate
    event.
+
    ~~~~
    anomaly = {
      schema_version: tstr,
@@ -486,7 +485,7 @@ carried by existing telemetry systems.
    }
    number = int / float
 ~~~~
-{: #anomaly-record title='Anomaly Signal Record'}
+{: #anomaly-record title="Anomaly Signal Record"}
 
    The candidate_event_ids array is a ranked set.  A detector SHOULD
    emit a compact, evidence-preserving candidate set rather than copying
@@ -515,7 +514,7 @@ carried by existing telemetry systems.
      ? remediation: tstr
    }
 ~~~~
-{: #assert-record title='Trust Level Assertion Record'}
+{: #assert-record title="Trust Level Assertion Record"}
 
    The approaching result supports risk prediction before a hard
    boundary is crossed.  Trust levels and boundaries are application-
@@ -563,6 +562,7 @@ carried by existing telemetry systems.
    event, terminal event, supporting evidence, and method.  It SHOULD
    include the failure chain, category, confidence, and validation
    status.
+
 ~~~~
    diagnosis = {
      schema_version: tstr,
@@ -589,7 +589,7 @@ carried by existing telemetry systems.
      actor_id: tstr
    }
 ~~~~
-{: #diag-record title='Root-Cause Diagnosis Record'}
+{: #diag-record title="Root-Cause Diagnosis Record"}
 
    The evidence_event_ids values MUST resolve to events in the original
    trajectory.  Derived summaries can be included through rationale_ref,
@@ -600,7 +600,7 @@ carried by existing telemetry systems.
    Implementations MAY use the following initial analysis taxonomy.  The
    category is auxiliary; responsible-actor and root-cause-event labels
    remain the primary interoperable targets.
-~~~~
+
     +========+================+======================================+
     | Prefix | Class          | Example leaf categories              |
     +========+================+======================================+
@@ -621,8 +621,7 @@ carried by existing telemetry systems.
     | X      | Non-agent      | contradictory input, unrecoverable   |
     |        |                | environment                          |
     +--------+----------------+--------------------------------------+
-~~~~
-{: #category-class title='Table 2: Initial Failure Category Classes'}
+{: #tab-cate-class title="Initial Failure Category Classes"}
 
    Future specifications can define stable category identifiers.
    Collectors MUST preserve unknown categories.
@@ -739,7 +738,6 @@ carried by existing telemetry systems.
    claimed for version -00.  Future revisions are expected to report
    mappings to existing OpenTelemetry representations and validation of
    the CDDL examples.
-
 
 --- back
 
